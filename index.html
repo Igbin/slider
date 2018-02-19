@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link rel="stylesheet" href="main.css">
+	<title>3</title>
+</head>
+<body>
+
+<div class="wraper">
+	<div class="outer">
+			<div class="slider" id="slider">
+				<div class="page"><img src="recent-photo1.jpg"></div>
+				<div class="page"><img src="recent-photo2.jpg"></div>
+				<div class="page"><img src="recent-photo3.jpg"></div>
+			</div>
+	</div>
+	<div class="prev_nextButtons">
+		<div id="next" onclick="nextSlide()"></div>
+		<div id="prev" onclick="prevSlide()"></div>
+	</div>
+	<ul id="nav-btns">
+         <li class="slide-nav-btn"></li>
+         <li class="slide-nav-btn"></li>
+         <li class="slide-nav-btn"></li>
+ 	</ul>
+</div>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script type="text/javascript">
+
+$('.slide-nav-btn').first().css({"background-color":"#867c6e"})
+
+$(window).resize(function(){
+
+})
+
+var slidenow = 0;
+function nextSlide () {
+if (slidenow == 0) {
+		$("#slider").css({
+			'transform': 'translate('+ (-$('#slider').width()/3) + 'px, 0)'})
+		slidenow++
+} else if (slidenow == 1) {
+	$("#slider").css({
+		'transform': 'translate('+ (-$('#slider').width()/3)*2 + 'px, 0)'})
+	slidenow++
+} else {
+	$("#slider").css({'transform': 'translate(0,0)'})
+	slidenow = 0;
+}
+$('.slide-nav-btn').css({"background-color":"white"})
+$('.slide-nav-btn').eq(slidenow).css({"background-color":"#867c6e"})
+}
+
+
+function prevSlide () {
+if (slidenow == 0) {
+		$("#slider").css({
+			'transform': 'translate('+ (-$('#slider').width()/3)*2 + 'px, 0)'})
+		slidenow=2;
+} else if (slidenow == 2) {
+	$("#slider").css({
+		'transform': 'translate('+ (-$('#slider').width()/3) + 'px, 0)'})
+	slidenow--
+} else {
+	$("#slider").css({'transform': 'translate(0,0)'})
+	slidenow = 0;
+}
+$('.slide-nav-btn').css({"background-color":"white"})
+$('.slide-nav-btn').eq(slidenow).css({"background-color":"#867c6e"})
+}
+
+
+$(".slide-nav-btn").on("click", function() {
+	$('.slide-nav-btn').css({"background-color":"white"})
+	$(this).css({"background-color":"#867c6e"})
+
+	if (slidenow == 0 && $(this).index()==1 || slidenow == 1 && $(this).index()==2) {
+		nextSlide ();
+	}  else if (slidenow == 0 && $(this).index()==2) {
+		slidenow++
+		nextSlide ();
+	} else if (slidenow == 1 && $(this).index()==0 || slidenow == 2 && $(this).index()==1) {
+		prevSlide ()
+	}  else if(slidenow == 2 && $(this).index()==0) {
+		slidenow--
+		prevSlide ()
+	}
+
+})
+
+
+</script>
+</body>
+</html>
